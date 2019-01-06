@@ -57,4 +57,4 @@ class Normal:
         '''
         Derivative of the log-density
         '''
-        return -0.5*((x-self.m)/self.s)**2 
+        return -(1/self.s)**2*(x-self.m)

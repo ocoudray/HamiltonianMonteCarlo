@@ -24,9 +24,9 @@ class Verlet:
         Perform one iteration for the integrator starting with initial conditions q0, p0
         (p = q')
         '''
-        p_half = p0 - 0.5*h*self.acc(q0)
+        p_half = p0 + 0.5*h*self.acc(q0)
         q1 = q0 + p_half*h
-        a1 = -self.acc(q1)
+        a1 = + self.acc(q1)
         p1 = p_half + a1*h*0.5
         return q1,p1
     
