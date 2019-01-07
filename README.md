@@ -4,7 +4,9 @@ Run notebook here : [![Binder](https://mybinder.org/badge_logo.svg)](https://myb
 
 ## Distributions available
 + Gaussian
++ Exponential
 + Gamma
++ Cauchy
 
 ## Kernels (Metropolis Hastings)
 + Gaussian Kernel

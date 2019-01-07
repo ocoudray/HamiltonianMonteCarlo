@@ -30,6 +30,16 @@ class Gamma:
         '''
         return -x*self.b + (self.a-1)/x
 
+class Exponential(Gamma):
+    '''
+    Exponential distribution
+    Parameters:
+        - lbda : lambda  
+    '''
+    def __init__(self, lbda):
+        self.lbda = lbda
+        super().__init__(1, lbda)
+
 class Normal:
     '''
     Normal distribution
@@ -58,3 +68,25 @@ class Normal:
         Derivative of the log-density
         '''
         return -(1/self.s)**2*(x-self.m)
+
+class Cauchy:
+    '''
+    Cauchy distribution
+    '''
+    def pdf(self, x):
+        '''
+        Density function
+        '''
+        return scs.cauchy.pdf(x)
+    
+    def log_pdf(self, x):
+        '''
+        Log-density function
+        '''
+        return scs.cauchy.logpdf(x)  
+
+    def log_pdf_deriv(self,x):
+        '''
+        Derivative of the log-density
+        '''
+        return -2*x/(1+x**2)
