@@ -59,3 +59,26 @@ class Verlet:
             self.saved_p.append(-p0)
             self.saved_q.append(value)
             return value
+
+    def simul_rhmc(self, value, distribution):
+        p0 = np.random.randn()
+        m = np.random.geometric(1/self.n_steps)
+        new_value, p = self.iterate(value, p0, self.step, m)
+        try:
+            alpha = -(1/2*p**2 - 1/2*p0**2)+(distribution.log_pdf(new_value)-distribution.log_pdf(value))
+        except:
+            alpha = 0
+        u = np.log(np.random.rand())
+        if np.isnan(alpha):
+            self.saved_p.append(-p0)
+            self.saved_q.append(value)
+            return value
+        elif u <= alpha:
+            self.accept += 1
+            self.saved_p.append(p)
+            self.saved_q.append(new_value)
+            return new_value
+        else:
+            self.saved_p.append(-p0)
+            self.saved_q.append(value)
+            return value

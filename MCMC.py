@@ -52,9 +52,27 @@ class HMC(MCMC):
         super().__init__(distribution = distribution, integrator = integrator, kernel = None, params = params)
     def iterate(self):
         '''
-        One iteration of MH algorithm and return next value
+        One iteration of HMC algorithm and return next value
         '''
         return self.integrator.simul(self.value, self.distribution)
+    def run(self, n_iteration):
+        '''
+        Perform n iterations and update saved_values and accept
+        '''
+        self.integrator.accept = 0
+        for k in range(n_iteration):
+            self.value = self.iterate()
+            self.saved_values.append(self.value)
+        self.accept = self.integrator.accept/n_iteration
+
+class RHMC(MCMC):
+    def __init__(self, distribution, integrator, params):
+        super().__init__(distribution = distribution, integrator = integrator, kernel = None, params = params)
+    def iterate(self):
+        '''
+        One iteration of HMC algorithm and return next value
+        '''
+        return self.integrator.simul_rhmc(self.value, self.distribution)
     def run(self, n_iteration):
         '''
         Perform n iterations and update saved_values and accept
